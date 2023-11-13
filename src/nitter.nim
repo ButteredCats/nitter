@@ -63,7 +63,7 @@ settings:
 
 routes:
   get "/about":
-    resp renderMain(renderAbout(), request, cfg, themePrefs())
+    resp renderMain(renderAbout(), request, cfg, themePrefs(), "About")
 
   get "/explore":
     redirect("/about")
