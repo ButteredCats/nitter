@@ -52,7 +52,7 @@ macro genPrefs*(prefDsl: untyped) =
 genPrefs:
   Timeline:
     following(input, ""):
-      "A comma-separated list of users to follow."
+      "A comma-separated list of users to follow. Note that when following more than 20-25 users some of them will stop appearing in the feed due to a bug."
       placeholder: "one,two,three"
 
   Display:
