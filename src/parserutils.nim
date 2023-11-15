@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-import std/[strutils, times, macros, htmlgen, options, algorithm, re, xmltree]
+import std/[strutils, times, macros, htmlgen, options, algorithm, re]
 import std/unicode except strip
 import packedjson
 import types, utils, formatters
@@ -304,7 +304,7 @@ proc expandTweetEntities*(tweet: Tweet; js: JsonNode) =
 proc expandNoteTweetEntities*(tweet: Tweet; js: JsonNode) =
   let
     entities = ? js{"entity_set"}
-    text = xmltree.escape(js{"text"}.getStr)
+    text = js{"text"}.getStr
     textSlice = 0..text.runeLen
 
   tweet.expandTextEntities(entities, text, textSlice)
