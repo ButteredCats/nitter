@@ -1,6 +1,7 @@
 {
     "name": "Nitter",
     "short_name": "Nitter",
+    "start_url": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
