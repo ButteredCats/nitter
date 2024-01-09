@@ -37,6 +37,6 @@ proc createFollowRouter*(cfg: Config) =
         following = cookiePrefs().following
         remove = @"name"
         updated = removeUserFromFollowing(following, remove)
-      setCookie("following", updated, daysForward(360),
+      setCookie("following", updated, daysForward(if isEmptyOrWhitespace(updated): -10 else: 360),
                 httpOnly=true, secure=cfg.useHttps, path="/")
       redirect(refPath())
