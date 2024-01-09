@@ -109,7 +109,7 @@ genPrefs:
       placeholder: "Piped hostname"
 
     replaceReddit(input, ""):
-      "Reddit -> Teddit/Libreddit"
+      "Reddit -> Teddit/Redlib"
       placeholder: "Teddit hostname"
         
     replaceImgur(input, ""):
