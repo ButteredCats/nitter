@@ -73,7 +73,7 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
       link(rel="alternate", type="application/rss+xml", href=rss, title="RSS feed")
 
     if prefs.hlsPlayback:
-      script(nonce=cfg.nonceString, src="/js/hls.light.min.js", `defer`="")
+      script(nonce=cfg.nonceString, src="/js/hls.min.js", `defer`="")
       script(nonce=cfg.nonceString, src="/js/hlsPlayback.js", `defer`="")
 
     if prefs.infiniteScroll:
