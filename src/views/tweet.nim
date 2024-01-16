@@ -12,7 +12,7 @@ const doctype = "<!DOCTYPE html>\n"
 proc renderMiniAvatar(user: User; prefs: Prefs): VNode =
   let url = getPicUrl(user.getUserPic("_mini"))
   buildHtml():
-    img(class=(prefs.getAvatarClass & " mini"), src=url, loading="lazy")
+    img(class=(prefs.getAvatarClass & " mini"), loading="lazy", src=url)
 
 proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs): VNode =
   buildHtml(tdiv):
@@ -92,10 +92,10 @@ proc renderVideo*(video: Video; prefs: Prefs; path: string): VNode =
       tdiv(class="attachment video-container"):
         let thumb = getSmallPic(video.thumb)
         if not video.available:
-          img(src=thumb, loading="lazy")
+          img(loading="lazy", src=thumb)
           renderVideoUnavailable(video)
         elif not prefs.isPlaybackEnabled(playbackType):
-          img(src=thumb, loading="lazy")
+          img(loading="lazy", src=thumb)
           renderVideoDisabled(playbackType, path)
         else:
           let
@@ -144,7 +144,7 @@ proc renderPoll(poll: Poll): VNode =
 proc renderCardImage(card: Card): VNode =
   buildHtml(tdiv(class="card-image-container")):
     tdiv(class="card-image"):
-      img(src=getPicUrl(card.image), alt="", loading="lazy")
+      img(loading="lazy", src=getPicUrl(card.image), alt="")
       if card.kind == player:
         tdiv(class="card-overlay"):
           tdiv(class="overlay-circle"):
