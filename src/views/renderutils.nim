@@ -88,9 +88,9 @@ proc genDate*(pref, state: string): VNode =
     input(name=pref, `type`="date", value=state)
     icon "calendar"
 
-proc genImg*(url: string; class=""): VNode =
+proc genImg*(url: string; class="", loading=""): VNode =
   buildHtml():
-    img(src=getPicUrl(url), class=class, alt="", loading="lazy")
+    img(src=getPicUrl(url), class=class, alt="", loading=loading)
 
 proc getTabClass*(query: Query; tab: QueryKind): string =
   if query.kind == tab: "tab-item active"
