@@ -12,7 +12,7 @@ const doctype = "<!DOCTYPE html>\n"
 proc renderMiniAvatar(user: User; prefs: Prefs): VNode =
   let url = getPicUrl(user.getUserPic("_mini"))
   buildHtml():
-    img(class=(prefs.getAvatarClass & " mini"), src=url)
+    img(class=(prefs.getAvatarClass & " mini"), loading="lazy", src=url)
 
 proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs): VNode =
   buildHtml(tdiv):
@@ -28,7 +28,7 @@ proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs): VN
         var size = "_bigger"
         if not prefs.autoplayGifs and tweet.user.userPic.endsWith("gif"):
           size = "_400x400"
-        genImg(tweet.user.getUserPic(size), class=prefs.getAvatarClass)
+        genImg(tweet.user.getUserPic(size), class=prefs.getAvatarClass, loading="lazy")
 
       tdiv(class="tweet-name-row"):
         tdiv(class="fullname-and-username"):
@@ -54,7 +54,7 @@ proc renderAlbum(tweet: Tweet): VNode =
               named = "name=" in photo
               small = if named: photo else: photo & smallWebp
             a(href=getOrigPicUrl(photo), class="still-image", target="_blank"):
-              genImg(small)
+              genImg(small, loading="lazy")
 
 proc isPlaybackEnabled(prefs: Prefs; playbackType: VideoType): bool =
   case playbackType
@@ -92,10 +92,10 @@ proc renderVideo*(video: Video; prefs: Prefs; path: string): VNode =
       tdiv(class="attachment video-container"):
         let thumb = getSmallPic(video.thumb)
         if not video.available:
-          img(src=thumb)
+          img(loading="lazy", src=thumb)
           renderVideoUnavailable(video)
         elif not prefs.isPlaybackEnabled(playbackType):
-          img(src=thumb)
+          img(loading="lazy", src=thumb)
           renderVideoDisabled(playbackType, path)
         else:
           let
@@ -105,10 +105,10 @@ proc renderVideo*(video: Video; prefs: Prefs; path: string): VNode =
                      else: vidUrl
           case playbackType
           of mp4:
-            video(poster=thumb, controls="", muted=prefs.muteVideos):
+            video(poster=thumb, controls="", muted=prefs.muteVideos, preload="none"):
               source(src=source, `type`="video/mp4")
           of m3u8, vmap:
-            video(poster=thumb, data-url=source, data-autoload="false", muted=prefs.muteVideos)
+            video(poster=thumb, data-url=source, data-autoload="false", muted=prefs.muteVideos, preload="none")
             verbatim "<div class=\"video-overlay\">"
             tdiv(class="overlay-circle"): span(class="overlay-triangle")
             verbatim "</div>"
@@ -123,7 +123,7 @@ proc renderGif(gif: Gif; prefs: Prefs): VNode =
     tdiv(class="gallery-gif", style={maxHeight: "unset"}):
       tdiv(class="attachment"):
         video(class="gif", poster=getSmallPic(gif.thumb), autoplay=prefs.autoplayGifs,
-              controls="", muted="", loop=""):
+              controls="", muted="", loop="", preload="none"):
           source(src=getPicUrl(gif.url), `type`="video/mp4")
 
 proc renderPoll(poll: Poll): VNode =
@@ -144,7 +144,7 @@ proc renderPoll(poll: Poll): VNode =
 proc renderCardImage(card: Card): VNode =
   buildHtml(tdiv(class="card-image-container")):
     tdiv(class="card-image"):
-      img(src=getPicUrl(card.image), alt="")
+      img(loading="lazy", src=getPicUrl(card.image), alt="")
       if card.kind == player:
         tdiv(class="card-overlay"):
           tdiv(class="overlay-circle"):

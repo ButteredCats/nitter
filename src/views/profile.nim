@@ -22,7 +22,7 @@ proc renderUserCard*(user: User; prefs: Prefs; path: string): VNode =
           else: "_400x400"
 
       a(class="profile-card-avatar", href=url, target="_blank"):
-        genImg(user.getUserPic(size))
+        genImg(user.getUserPic(size), loading="eager")
 
       tdiv(class="profile-card-tabs-name-and-follow"):
         tdiv():
@@ -88,7 +88,7 @@ proc renderPhotoRail(profile: Profile): VNode =
           if "format" in photo.url or "placeholder" in photo.url: ""
           else: ":thumb"
         a(href=(&"/{profile.user.username}/status/{photo.tweetId}#m")):
-          genImg(photo.url & photoSuffix)
+          genImg(photo.url & photoSuffix, loading="eager")
 
 proc renderBanner(banner: string): VNode =
   buildHtml():
@@ -97,7 +97,7 @@ proc renderBanner(banner: string): VNode =
     elif banner.startsWith('#'):
       a(style={backgroundColor: banner})
     else:
-      a(href=getPicUrl(banner), target="_blank"): genImg(banner)
+      a(href=getPicUrl(banner), target="_blank"): genImg(banner, loading="eager")
 
 proc renderProtected(username: string): VNode =
   buildHtml(tdiv(class="timeline-container")):
