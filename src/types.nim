@@ -261,7 +261,6 @@ type
     staticDir*: string
 
     hmacKey*: string
-    nonceString*: string
     base64Media*: bool
     minTokens*: int
     enableRss*: bool
