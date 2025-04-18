@@ -142,11 +142,7 @@ proc renderPoll(poll: Poll): VNode =
 proc renderCardImage(card: Card): VNode =
   buildHtml(tdiv(class="card-image-container")):
     tdiv(class="card-image"):
-<<<<<<< HEAD
-      img(loading="lazy", src=getPicUrl(card.image), alt="")
-=======
       genImg(card.image)
->>>>>>> upstream_nitter/master
       if card.kind == player:
         tdiv(class="card-overlay"):
           tdiv(class="overlay-circle"):
