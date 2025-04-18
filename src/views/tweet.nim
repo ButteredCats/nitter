@@ -10,9 +10,7 @@ import general
 const doctype = "<!DOCTYPE html>\n"
 
 proc renderMiniAvatar(user: User; prefs: Prefs): VNode =
-  let url = getPicUrl(user.getUserPic("_mini"))
-  buildHtml():
-    img(class=(prefs.getAvatarClass & " mini"), loading="lazy", src=url)
+  genImg(user.getUserPic("_mini"), class=(prefs.getAvatarClass & " mini"), loading="lazy")
 
 proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs): VNode =
   buildHtml(tdiv):
@@ -144,7 +142,11 @@ proc renderPoll(poll: Poll): VNode =
 proc renderCardImage(card: Card): VNode =
   buildHtml(tdiv(class="card-image-container")):
     tdiv(class="card-image"):
+<<<<<<< HEAD
       img(loading="lazy", src=getPicUrl(card.image), alt="")
+=======
+      genImg(card.image)
+>>>>>>> upstream_nitter/master
       if card.kind == player:
         tdiv(class="card-overlay"):
           tdiv(class="overlay-circle"):
