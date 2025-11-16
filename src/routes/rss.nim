@@ -23,7 +23,7 @@ proc timelineRss*(req: Request; cfg: Config; query: Query; tab, param: string): 
     names = getNames(name)
 
   if names.len == 1:
-    profile = await fetchProfile(after, query, skipRail=true, skipPinned=true)
+    profile = await fetchProfile(after, query, skipRail=true)
   else:
     var q = query
     q.fromUser = names
