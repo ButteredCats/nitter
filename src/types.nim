@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-import times, sequtils, options, tables
+import times, sequtils, options, tables, uri
 import prefs_impl
 
 genPrefsType()
@@ -38,6 +38,7 @@ type
 
   Session* = ref object
     id*: int64
+    username*: string
     pending*: int
     limited*: bool
     limitedAt*: int
@@ -49,6 +50,10 @@ type
     of cookie:
       authToken*: string
       ct0*: string
+
+  SessionAwareUrl* = object
+    oauthUrl*: Uri
+    cookieUrl*: Uri
 
   Error* = enum
     null = 0
@@ -198,6 +203,7 @@ type
     retweets*: int
     likes*: int
     quotes*: int
+    views*: int
 
   Tweet* = ref object
     id*: int64
