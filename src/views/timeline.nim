@@ -64,8 +64,8 @@ proc threadFilter(tweets: openArray[Tweet]; threads: openArray[int64]; it: Tweet
     elif t.replyId == result[0].id:
       result.add t
 
-proc renderUser*(user: User; prefs: Prefs): VNode =
-  buildHtml(tdiv(class="timeline-item")):
+proc renderUser(user: User; prefs: Prefs): VNode =
+  buildHtml(tdiv(class="timeline-item", data-username=user.username)):
     a(class="tweet-link", href=("/" & user.username))
     tdiv(class="tweet-body profile-result"):
       tdiv(class="tweet-header"):

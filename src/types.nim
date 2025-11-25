@@ -121,7 +121,6 @@ type
     durationMs*: int
     url*: string
     thumb*: string
-    views*: string
     available*: bool
     reason*: string
     title*: string
@@ -141,7 +140,7 @@ type
     fromUser*: seq[string]
     since*: string
     until*: string
-    near*: string
+    minLikes*: string
     sep*: string
 
   Gif* = object
@@ -202,7 +201,6 @@ type
     replies*: int
     retweets*: int
     likes*: int
-    quotes*: int
     views*: int
 
   Tweet* = ref object
